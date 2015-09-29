@@ -5,9 +5,10 @@ var routes = require('./src/routes');
 // MARK: - Create Server
 
 var server = new Hapi.Server();
-server.connection({ 
-    host: 'localhost', 
-    port: 8000 
+
+server.connection({
+    host: '0.0.0.0',
+    port: parseInt(process.env.PORT) || 8000
 });
 
 // MARK: - Configure Routing
