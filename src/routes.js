@@ -1,14 +1,8 @@
 var db = require('./db')
 
-// MARK: - Utils
-
-String.prototype.startsWith = function(needle) {
-  return(this.indexOf(needle) == 0);
-}
-
 module.exports = [
 
-// MARK: Brews
+// MARK: Getting Brews
 
 {
   method: 'GET',
@@ -23,7 +17,24 @@ module.exports = [
   }
 },
 
-// MARK: Breweries
+// MARK: Adding a Brew
+
+{
+  method: 'POST',
+  path:'/brews',
+  handler: function (request, reply) {
+    var brew = request.payload
+    console.log('insert brew')
+    console.log(brew)
+    db.connectAndInsertBrew(brew, function (error, result) {
+      if (error) { return reply(error).code(500); };
+
+      reply().code(204);
+    });
+  }
+},
+
+// MARK: Getting Breweries
 
 {
   method: 'GET',
